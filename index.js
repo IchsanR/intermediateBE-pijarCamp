@@ -11,13 +11,24 @@ const recipeRouter = require("./src/router/recipe.routes");
 const commentRouter = require("./src/router/comment.routes");
 
 const app = express();
+const corsOption = {
+	origin: "http://localhost.com:3000",
+	credentials: true,
+	optionSuccessStatus: 200,
+};
 
+app.use(express.static("public"));
 app.use(helmet());
-app.use(cors());
+// app.use(
+// 	helmet({
+// 		crossOriginResourcePolicy: false,
+// 	})
+// );
+app.use(cors(corsOption));
 app.use(xss());
 app.use(bodyParser.json());
-app.use(userRouter);
 app.use(recipeRouter);
+app.use(userRouter);
 app.use(commentRouter);
 
 // jalanin express
